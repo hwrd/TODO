@@ -5,7 +5,9 @@ require 'date'
 date      = Date.today # ISO 8601 Format
 filename  = "#{date.year}/#{date}.md"
 
-prev_date = Date.parse(Dir["**/*.{md,txt}"].map{|f| File.basename(f, ".*")}.sort_by {|f| Date.parse(f)}.last)
+ignored_files = ["README.md"]
+
+prev_date = Date.parse(Dir["**/*.{md,txt}"].reject{|f| ignored_files.include?(f) }.map{|f| File.basename(f, ".*")}.sort_by {|f| Date.parse(f)}.last)
 prev_filename = "#{prev_date.year}/#{prev_date}.md"
 
 UNFINISHED_REGEX = /(?<=## TODO\n)(.|\n)+(?=\n## Accomplished)/
