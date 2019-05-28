@@ -1,9 +1,11 @@
 #!/usr/bin/env ruby -w
 
 require 'date'
+require 'fileutils'
 
 date      = Date.today # ISO 8601 Format
 filename  = "#{date.year}/#{date}.md"
+dirname   = File.dirname(filename)
 
 ignored_files = ["README.md"]
 
@@ -23,5 +25,9 @@ template = <<-TEMPLATE
 
 ## Notes
 TEMPLATE
+
+unless File.directory?(dirname)
+  FileUtils.mkdir_p(dirname)
+end
 
 File.open(filename, 'w') {|f| f.write(template) }
