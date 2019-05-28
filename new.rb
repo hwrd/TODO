@@ -16,7 +16,7 @@ UNFINISHED_REGEX = /(?<=## TODO\n)(.|\n)+(?=\n## Accomplished)/
 unfinished = File.open(prev_filename, 'r').read.match(UNFINISHED_REGEX) || ""
 
 template = <<-TEMPLATE
-# #{date}
+# #{date.strftime("%F (%a)")}
 
 ## TODO
 #{unfinished.to_s.chomp}
